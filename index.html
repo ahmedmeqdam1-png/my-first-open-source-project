@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مركز الاختبارات الإلكترونية – جامعة صنعاء</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- QRCode.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--primary:#0f2c59;--primary-light:#18458b;--gold:#c59b27;--gold-hover:#b0871d;--bg:#f8fafd;--card:#ffffff;--text:#1a2538;--muted:#5e6d82;--border:#dbe2ea;--ok:#0d8a57;--ok-bg:#e6f6ee;--warn:#c27803;--warn-bg:#fff8eb;--bad:#d32f2f;--bad-bg:#fde8e8;--radius:12px}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Tajawal',Tahoma,Arial,sans-serif;background-color:var(--bg);color:var(--text);line-height:1.6;direction:rtl}
+header{background:linear-gradient(135deg,var(--primary) 0%,#0a1f3f 100%);color:#fff;border-bottom:4px solid var(--gold);box-shadow:0 4px 14px rgba(0,0,0,0.12)}
+.header-wrap{max-width:1150px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px}
+.branding{display:flex;align-items:center;gap:14px}
+.logo-box{background:#fff;border-radius:10px;padding:4px;display:flex;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.logo-box img{height:55px;width:auto;display:block;border-radius:6px}
+.title-box b{font-size:20px;display:block;font-weight:800;color:#fff}
+.title-box small{color:#dbe4f3;font-size:13px}
+.role-switch{display:flex;background:rgba(255,255,255,0.12);padding:4px;border-radius:30px;border:1px solid rgba(255,255,255,0.2)}
+.role-switch button{border:none;background:transparent;color:#fff;padding:6px 18px;border-radius:24px;font-family:inherit;font-weight:700;cursor:pointer;transition:0.3s}
+.role-switch button.active{background:var(--gold);color:#0b1a30}
+main{max-width:1150px;margin:24px auto 60px;padding:0 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:20px;box-shadow:0 2px 10px rgba(15,44,89,0.04)}
+h2{font-size:18px;margin-bottom:16px;color:var(--primary);display:flex;align-items:center;gap:8px}
+h2:before{content:"";display:inline-block;width:5px;height:20px;background:var(--gold);border-radius:4px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 18px}
+.form-group{display:flex;flex-direction:column}
+label{font-size:14px;font-weight:700;margin-bottom:6px}
+input,select{width:100%;padding:10px 14px;font-family:inherit;font-size:15px;border:1px solid var(--border);border-radius:8px;outline:none}
+.err{color:var(--bad);font-size:12px;min-height:18px;margin-top:3px}
+.btn{font-family:inherit;font-weight:700;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:0.2s}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-light)}
+.btn-gold{background:var(--gold);color:#000}.btn-gold:hover{background:var(--gold-hover)}
+.btn-alt{background:#eef3f9;color:var(--primary)}.btn-ok{background:var(--ok);color:#fff}.btn-sm{padding:5px 12px;font-size:13px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.bg-ok{background:var(--ok-bg);color:var(--ok)}.bg-warn{background:var(--warn-bg);color:var(--warn)}.bg-bad{background:var(--bad-bg);color:var(--bad)}
+.tbl-wrap{overflow-x:auto;width:100%}table{width:100%;border-collapse:collapse;min-width:600px}th,td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--border);font-size:14px}th{background:#f2f6fb;color:var(--muted)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;max-width:550px;margin:12px 0}
+.cal-grid .head{text-align:center;font-weight:700;font-size:13px;color:var(--muted);padding:4px}
+.cal-grid button{aspect-ratio:1;border:1px solid var(--border);background:#fff;border-radius:8px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.cal-grid button:disabled{opacity:0.35;cursor:not-allowed;background:#f1f4f8}
+.cal-grid button.mine{background:var(--primary);color:#fff}
+.chip{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:13px;font-weight:700}
+.chip.active{background:var(--primary);color:#fff}
+.notice-box{background:#edf4fc;border-right:4px solid var(--primary);padding:12px 16px;border-radius:6px;margin:14px 0;font-size:14px}
+.modal{position:fixed;inset:0;background:rgba(10,25,47,0.65);display:flex;justify-content:center;align-items:flex-start;padding:20px;overflow-y:auto;z-index:999}
+.paper{background:#fff;color:#000;width:100%;max-width:680px;border-radius:10px;padding:30px;border:2px solid var(--primary);position:relative}
+.admit-card{border:3px double var(--primary);padding:20px;border-radius:12px;background:#fff;margin-top:15px}
+.admit-card-header{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--gold);padding-bottom:10px;margin-bottom:15px}
+@media print{.no-print{display:none!important}.modal{position:static;background:none;padding:0}.paper{border:none;width:100%}}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111e33;color:#fff;padding:10px 24px;border-radius:30px;font-size:14px;font-weight:700;z-index:1000;display:none;box-shadow:0 4px 15px rgba(0,0,0,0.3)}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-wrap">
+    <div class="branding">
+      <div class="logo-box">
+        <img src="logo.jpg" alt="شعار جامعة صنعاء - مركز الاختبارات الإلكترونية">
+      </div>
+      <div class="title-box">
+        <b>مركز الاختبارات الإلكترونية – جامعة صنعاء</b>
+        <small>Electronic Examination Center – Sana'a University</small>
+      </div>
+    </div>
+    <div class="role-switch">
+      <button id="tab-stu" class="active" onclick="switchRole('s')"><i class="fa-solid fa-user-graduate"></i> بوابة الطالب</button>
+      <button id="tab-adm" onclick="switchRole('a')"><i class="fa-solid fa-user-shield"></i> لوحة الإدارة</button>
+    </div>
+  </div>
+</header>
+<main id="app"></main>
+<div id="modal-container"></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const SANAA='جامعة صنعاء',FEE=5000,PASS_SCORE=55,EXAM_TIME='09:30 صباحاً',ADM_USER='ahmed',ADM_PASS='772010129';
+const DAYS=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],SANAA_SUBJECTS=['اللغة العربية','اللغة الإنجليزية','الحاسوب'];
+const FACULTIES={'كلية الحاسوب وتكنولوجيا المعلومات':['علوم الحاسوب','نظم المعلومات','الأمن السيبراني','الذكاء الاصطناعي'],'كلية الهندسة':['هندسة مدنية','هندسة معمارية','هندسة كهربائية','ميكاترونكس'],'كلية الطب والعلوم الصحية':['طب بشري','مختبرات','صيدلة','تمريض'],'كلية التجارة والاقتصاد':['إدارة أعمال','محاسبة','علوم مالية ومصرفية'],'كلية التربية':['إدارة تربوية','مناهج وطرائق تدريس'],'كلية الآداب':['لغة عربية','لغة إنجليزية وترجمة'],'كلية الشريعة والقانون':['قانون عام','قانون خاص'],'كلية العلوم':['رياضيات','فيزياء','كيمياء']};
+const PRIVATE_UNIS=['جامعة العلوم والتكنولوجيا','الجامعة الإماراتية الدولية','جامعة الناصر','الجامعة اليمنية','جامعة الرازي','جامعة الملكة أروى','جامعة خاصة أخرى'];
+let S={students:[],invoices:[],holidays:[],capacity:35,seq:1001,sid:1};
+
+try{const l=localStorage.getItem('sanaa_eec_v4');if(l)S=JSON.parse(l)}catch(e){}
+const saveState=()=>{try{localStorage.setItem('sanaa_eec_v4',JSON.stringify(S))}catch(e){}};
+let currentRole='s',currentStudentId=null,studentSubTab='register',adminSubTab='dash',isAdminAuthed=false,selectedSubjectForBooking=null,currentCalendarMonth=new Date(),toastTimer;
+
+const $=id=>document.getElementById(id),cleanDigits=v=>String(v||'').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/\D/g,''),formatMoney=n=>Number(n).toLocaleString('en-US')+' ريال يمني',formatDateIso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),formatDayName=isoStr=>DAYS[new Date(isoStr+'T00:00:00').getDay()]+' '+isoStr;
+
+function showToast(m){clearTimeout(toastTimer);const t=$('toast');t.textContent=m;t.style.display='block';toastTimer=setTimeout(()=>t.style.display='none',3800)}
+function switchRole(r){currentRole=r;$('tab-stu').className=r==='s'?'active':'';$('tab-adm').className=r==='a'?'active':'';render()}
+function render(){$('app').innerHTML=currentRole==='s'?renderStudentPortal():(isAdminAuthed?renderAdminPortal():renderAdminLogin());if(currentRole==='s'&&!currentStudentId&&studentSubTab==='register'){updateMajorsDropdown();onUniSelectChange()}}
+
+function renderStudentPortal(){const s=currentStudentId?S.students.find(x=>x.id===currentStudentId):null;if(s)return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;" class="no-print"><span class="badge bg-ok" style="font-size:14px;padding:6px 14px;"><i class="fa-solid fa-user-circle"></i> مرحباً: ${s.nameAr}</span><button class="btn btn-alt btn-sm" onclick="currentStudentId=null;render()"><i class="fa-solid fa-sign-out"></i> خروج</button></div>`+renderStudentDashboard(s);return `<div class="card" style="max-width:550px;margin:0 auto 20px;"><div style="display:flex;gap:10px;"><button class="btn ${studentSubTab==='register'?'btn-primary':'btn-alt'}" style="flex:1" onclick="studentSubTab='register';render()">تسجيل طالب جديد</button><button class="btn ${studentSubTab==='login'?'btn-primary':'btn-alt'}" style="flex:1" onclick="studentSubTab='login';render()">دخول طالب مسجل</button></div></div>`+(studentSubTab==='register'?renderRegisterForm():renderLoginForm())}
+
+function renderLoginForm(){return `<div class="card" style="max-width:480px;margin:0 auto"><h2>دخول الطالب بالهاتف</h2><div class="form-group"><label>رقم الهاتف (9 أرقام)</label><input id="l-phone" dir="ltr" inputmode="numeric" placeholder="7XXXXXXXX" maxlength="9"><div class="err" id="l-err"></div></div><button class="btn btn-primary" style="width:100%" onclick="doStudentLogin()">دخول</button><button class="btn btn-alt" style="width:100%;margin-top:10px" onclick="loadDemoData()">تحميل بيانات تجريبية</button></div>`}
+
+function doStudentLogin(){const p=cleanDigits($('l-phone').value),s=S.students.find(x=>x.phone===p);if(!s)return $('l-err').textContent='الرقم غير مسجل';currentStudentId=s.id;render();showToast('تم تسجيل الدخول')}
+
+function renderRegisterForm(){return `<div class="card"><h2>استمارة تسجيل طالب لاختبار الكفاءة</h2><div class="form-grid"><div class="form-group"><label>الاسم الكامل بالعربية</label><input id="r-nameAr" placeholder="مثال: أحمد محمد علي العمري"><div class="err" id="er-nameAr"></div></div><div class="form-group"><label>Full Name in English</label><input id="r-nameEn" dir="ltr" placeholder="Ahmed Mohammed Ali"><div class="err" id="er-nameEn"></div></div><div class="form-group"><label>رقم الهاتف (9 أرقام)</label><input id="r-phone" dir="ltr" maxlength="9" placeholder="7XXXXXXXX"><div class="err" id="er-phone"></div></div><div class="form-group"><label>المرحلة</label><select id="r-level"><option>ماجستير</option><option>دكتوراه</option></select></div><div class="form-group"><label>جهة التخرج</label><select id="r-uni" onchange="onUniSelectChange()"><option>${SANAA}</option>${PRIVATE_UNIS.map(u=>`<option>${u}</option>`).join('')}</select></div><div class="form-group"><label>الكلية</label><select id="r-fac" onchange="updateMajorsDropdown()">${Object.keys(FACULTIES).map(f=>`<option>${f}</option>`).join('')}</select></div><div class="form-group"><label>التخصص</label><select id="r-major"></select></div></div><div class="notice-box" id="reg-fee-summary"></div><button class="btn btn-gold" onclick="submitRegistration()"><i class="fa-solid fa-check-circle"></i> تأكيد والانتقال لحجز المواعيد</button> <button class="btn btn-alt" onclick="loadDemoData()">بيانات تجريبية</button></div>`}
+
+function updateMajorsDropdown(){const f=$('r-fac'),m=$('r-major');if(!f||!m)return;m.innerHTML=(FACULTIES[f.value]||['عام']).map(x=>`<option>${x}</option>`).join('')}
+
+function onUniSelectChange(){const u=$('r-uni').value,b=$('reg-fee-summary');if(!b)return;b.innerHTML=u===SANAA?'خريج <b>جامعة صنعاء</b> ملزم بـ 3 مواد (عربي، إنجليزي، حاسوب) - الرسوم 15,000 ريال (يمكن التجزئة لمادة واحدة).':'خريج الجامعات الخاصة ملزم بمادة (اللغة الإنجليزية فقط) - الرسوم 5,000 ريال.'}
+
+function submitRegistration(){const na=$('r-nameAr').value.trim(),ne=$('r-nameEn').value.trim(),p=cleanDigits($('r-phone').value);if(na.length<5||ne.length<4||p.length!==9)return showToast('يرجى تصحيح البيانات المكتوبة');if(S.students.some(s=>s.phone===p))return showToast('الهاتف مسجل مسبقاً');const subs=( $('r-uni').value===SANAA?SANAA_SUBJECTS:['اللغة الإنجليزية']).map(n=>({name:n,date:null,status:'unbooked',score:null,invoiceNo:null}));const st={id:S.sid++,nameAr:na,nameEn:ne,phone:p,uni:$('r-uni').value,college:$('r-fac').value,major:$('r-major').value,level:$('r-level').value,subjects:subs};S.students.push(st);currentStudentId=st.id;saveState();render();showToast('تم التسجيل بنجاح')}
+
+function renderStudentDashboard(s){const unb=s.subjects.filter(x=>['unbooked','retake_issued'].includes(x.status)),bked=s.subjects.filter(x=>x.status==='booked'||x.status==='confirmed'),failed=s.subjects.filter(x=>x.status==='failed'),invs=S.invoices.filter(i=>i.studentId===s.id).reverse();return `<div class="card"><h2>${s.nameAr}</h2><p style="color:var(--muted)">${s.level} · ${s.college} (${s.major}) · ${s.uni} · هاتف: ${s.phone}</p><div class="tbl-wrap" style="margin-top:14px"><table><thead><tr><th>المادة</th><th>الموعد</th><th>الحالة</th><th>الدرجة</th><th>بطاقة الاختبار</th></tr></thead><tbody>${s.subjects.map(sub=>`<tr><td><b>${sub.name}</b></td><td>${sub.date?formatDayName(sub.date)+' - 09:30 ص':'—'}</td><td><span class="badge ${sub.status==='passed'||sub.status==='confirmed'?'bg-ok':'bg-warn'}">${sub.status}</span></td><td>${sub.score??'—'}</td><td>${sub.status==='confirmed'?`<button class="btn btn-gold btn-sm" onclick="printAdmitCard(${s.id},'${sub.name}')"><i class="fa-solid fa-qrcode"></i> بطاقة الدخول</button>`:'—'}</td></tr>`).join('')}</tbody></table></div></div>${unb.length?renderCalendarWidget(s,unb):''}${s.subjects.some(x=>x.status==='booked')?renderInvoiceRequestWidget(s,s.subjects.filter(x=>x.status==='booked')):''}${failed.length?renderRetakeWidget(s,failed):''}${invs.length?renderStudentInvoicesList(invs):''}`}
+
+function renderCalendarWidget(s,unb){if(!selectedSubjectForBooking||!unb.some(x=>x.name===selectedSubjectForBooking))selectedSubjectForBooking=unb[0].name;const y=currentCalendarMonth.getFullYear(),m=currentCalendarMonth.getMonth(),dim=new Date(y,m+1,0).getDate(),off=(new Date(y,m,1).getDay()+1)%7,today=formatDateIso(new Date());const used=s.subjects.filter(x=>x.name!==selectedSubjectForBooking&&x.date).map(x=>x.date),curD=(s.subjects.find(x=>x.name===selectedSubjectForBooking)||{}).date;let c=['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'].map(d=>`<div class="head">${d}</div>`).join('')+'<div></div>'.repeat(off);for(let d=1;d<=dim;d++){const iso=formatDateIso(new Date(y,m,d)),w=new Date(y,m,d).getDay(),dis=w===4||w===5||iso<=today||used.includes(iso);c+=`<button ${dis?'disabled':''} class="${iso===curD?'mine':''}" onclick="confirmBookingDate('${iso}')">${d}</button>`}return `<div class="card"><h2>حجز موعد الاختبار</h2><div style="display:flex;gap:8px;margin-bottom:10px;">${unb.map(x=>`<button class="chip ${x.name===selectedSubjectForBooking?'active':''}" onclick="selectedSubjectForBooking='${x.name}';render()">${x.name}${x.date?' ('+x.date+')':''}</button>`).join('')}</div><div class="cal-grid">${c}</div></div>`}
+
+function confirmBookingDate(iso){const s=S.students.find(x=>x.id===currentStudentId),sub=s.subjects.find(x=>x.name===selectedSubjectForBooking);sub.date=iso;if(sub.status==='unbooked')sub.status='booked';else if(sub.status==='retake_issued')sub.status='confirmed';saveState();render();showToast('تم حجز موعد '+sub.name)}
+
+let invReqType='all',singleSub='';
+function renderInvoiceRequestWidget(s,bked){if(!singleSub||!bked.some(x=>x.name===singleSub))singleSub=bked[0].name;return `<div class="card"><h2>طلب إصدار الحافظة من الموظف المختص</h2>${s.uni===SANAA&&bked.length>1?`<label><input type="radio" name="ir" ${invReqType==='all'?'checked':''} onchange="invReqType='all';render()"> حافظة شاملة لكل المواد</label> <label><input type="radio" name="ir" ${invReqType==='single'?'checked':''} onchange="invReqType='single';render()"> حافظة جزئية لمادة واحدة</label>`:''} ${invReqType==='single'?`<select onchange="singleSub=this.value">${bked.map(x=>`<option value="${x.name}">${x.name}</option>`).join('')}</select>`:''}<div class="notice-box">المبلغ: <b>${formatMoney(invReqType==='single'?FEE:bked.length*FEE)}</b></div><button class="btn btn-gold" onclick="sendInvoiceRequest(${s.id})">إرسال الطلب للموظف لإصدار الحافظة</button></div>`}
+
+function sendInvoiceRequest(id){const s=S.students.find(x=>x.id===id),targets=(s.uni===SANAA&&invReqType==='single')?s.subjects.filter(x=>x.name===singleSub&&x.status==='booked'):s.subjects.filter(x=>x.status==='booked');const inv={invoiceNo:S.seq++,studentId:s.id,type:'initial',subjects:targets.map(t=>({name:t.name,date:t.date})),totalAmount:targets.length*FEE,status:'requested',receiptRef:'',createdAt:new Date().toLocaleDateString('ar')};S.invoices.push(inv);targets.forEach(t=>{t.status='inv_requested';t.invoiceNo=inv.invoiceNo});saveState();render();showToast('تم إرسال الطلب للموظف')}
+
+function renderRetakeWidget(s,failed){return `<div class="card" style="border:2px solid var(--bad)"><h2>إعادة اختبار (رسوب)</h2><p>المواد: ${failed.map(x=>x.name).join('، ')}</p><button class="btn btn-gold" onclick="reqRetake(${s.id})">طلب حافظة إعادة من الموظف</button></div>`}
+
+function reqRetake(id){const s=S.students.find(x=>x.id===id),failed=s.subjects.filter(x=>x.status==='failed'),inv={invoiceNo:S.seq++,studentId:s.id,type:'retake',subjects:failed.map(t=>({name:t.name,date:null})),totalAmount:failed.length*FEE,status:'requested',receiptRef:'',createdAt:new Date().toLocaleDateString('ar')};S.invoices.push(inv);failed.forEach(t=>{t.status='retake_requested';t.invoiceNo=inv.invoiceNo;t.date=null;t.score=null});saveState();render();showToast('تم طلب حافظة الإعادة')}
+
+function renderStudentInvoicesList(invs){return `<div class="card"><h2>الحوافظ وسندات السداد</h2><div class="tbl-wrap"><table><thead><tr><th>الحافظة</th><th>المواد</th><th>المبلغ</th><th>الحالة</th><th>رقم السند</th><th>إجراء</th></tr></thead><tbody>${invs.map(i=>`<tr><td>#${i.invoiceNo}</td><td>${i.subjects.map(x=>x.name).join('، ')}</td><td>${formatMoney(i.totalAmount)}</td><td>${i.status}</td><td>${i.status==='issued'?`<input id="ref-${i.invoiceNo}" placeholder="رقم السند" style="width:120px"><button class="btn btn-primary btn-sm" onclick="subRef(${i.invoiceNo})">إرسال</button>`:i.receiptRef||'—'}</td><td>${i.status!=='requested'?`<button class="btn btn-alt btn-sm" onclick="printInvoice(${i.invoiceNo})">طباعة الحافظة</button>`:'بانتظار الموظف'}</td></tr>`).join('')}</tbody></table></div></div>`}
+
+function subRef(no){const v=$('ref-'+no).value.trim();if(!v)return;const i=S.invoices.find(x=>x.invoiceNo===no);i.receiptRef=v;i.status='submitted';saveState();render();showToast('تم إرسال مرجع السداد للموظف')}
+
+function renderAdminLogin(){return `<div class="card" style="max-width:400px;margin:40px auto"><h2>دخول لوحة تحكم الإدارة</h2><div class="form-group"><label>المستخدم</label><input id="adm-u"></div><div class="form-group" style="margin-top:10px"><label>كلمة المرور</label><input id="adm-p" type="password" onkeydown="if(event.key==='Enter')doAdminLogin()"><div class="err" id="adm-err"></div></div><button class="btn btn-primary" style="width:100%" onclick="doAdminLogin()">دخول</button></div>`}
+
+function doAdminLogin(){if($('adm-u').value.trim()===ADM_USER&&$('adm-p').value===ADM_PASS){isAdminAuthed=true;render();showToast('مرحباً أحمد')}else $('adm-err').textContent='بيانات الدخول غير صحيحة'}
+
+function renderAdminPortal(){const tabs=[['dash','المؤشرات'],['inv','طلبات الحوافظ والسداد'],['res','رصد النتائج والإكسل']];return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;" class="no-print"><div>المسؤول: <b>${ADM_USER}</b></div><div><a href="api/export_excel.php" target="_blank" class="btn btn-gold btn-sm"><i class="fa-solid fa-file-excel"></i> تصدير إكسل</a> <button class="btn btn-alt btn-sm" onclick="isAdminAuthed=false;switchRole('s')">خروج</button></div></div><div style="display:flex;gap:8px;margin-bottom:15px;" class="no-print">${tabs.map(t=>`<button class="btn ${adminSubTab===t[0]?'btn-primary':'btn-alt'}" onclick="adminSubTab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>`+(adminSubTab==='dash'?renderAdminDash():adminSubTab==='inv'?renderAdminInvs():renderAdminRes())}
+
+function renderAdminDash(){return `<div class="card"><h2>مؤشرات النظام</h2><p>إجمالي الطلاب: <b>${S.students.length}</b></p><p>الحوافظ المعلقة: <b>${S.invoices.filter(x=>x.status==='requested').length}</b></p></div>`}
+
+function renderAdminInvs(){return `<div class="card tbl-wrap"><h2>طلبات الحوافظ</h2><table><thead><tr><th>الحافظة</th><th>الطالب</th><th>الهاتف</th><th>المبلغ</th><th>الحالة</th><th>إجراء الموظف</th></tr></thead><tbody>${S.invoices.slice().reverse().map(i=>{const st=S.students.find(s=>s.id===i.studentId);return `<tr><td>#${i.invoiceNo}</td><td>${st?st.nameAr:''}</td><td>${st?st.phone:''}</td><td>${formatMoney(i.totalAmount)}</td><td>${i.status}</td><td>${i.status==='requested'?`<button class="btn btn-gold btn-sm" onclick="empIssue(${i.invoiceNo})">إصدار وإرسال للطالب</button>`:''}${i.status==='issued'||i.status==='submitted'?`<button class="btn btn-ok btn-sm" onclick="empApprove(${i.invoiceNo})">اعتماد وتأكيد الحجز</button>`:''}</td></tr>`}).join('')}</tbody></table></div>`}
+
+function empIssue(no){const i=S.invoices.find(x=>x.invoiceNo===no),st=S.students.find(s=>s.id===i.studentId);i.status='issued';st.subjects.forEach(x=>{if(x.invoiceNo===no)x.status='inv_issued'});saveState();render();showToast('تم إصدار الحافظة وإرسالها لحساب الطالب')}
+
+function empApprove(no){const i=S.invoices.find(x=>x.invoiceNo===no),st=S.students.find(s=>s.id===i.studentId);i.status='approved';st.subjects.forEach(x=>{if(x.invoiceNo===no)x.status=i.type==='retake'?'retake_issued':'confirmed'});saveState();render();showToast('تم تأكيد السداد وتأكيد موعد الاختبار')}
+
+function renderAdminRes(){const cand=[];S.students.forEach(st=>st.subjects.forEach(sub=>{if(['confirmed','passed','failed'].includes(sub.status))cand.push({st,sub})}));return `<div class="card tbl-wrap"><h2>رصد النتائج</h2><table><thead><tr><th>الطالب</th><th>الهاتف</th><th>المادة</th><th>الدرجة</th><th>الحالة</th></tr></thead><tbody>${cand.map(c=>`<tr><td>${c.st.nameAr}</td><td>${c.st.phone}</td><td>${c.sub.name}</td><td><input type="number" min="0" max="100" style="width:80px" value="${c.sub.score??''}" onchange="saveGrade(${c.st.id},'${c.sub.name}',this.value)"></td><td>${c.sub.status}</td></tr>`).join('')}</tbody></table></div>`}
+
+function saveGrade(id,name,val){if(val===''||isNaN(val))return;const st=S.students.find(s=>s.id===id),sub=st.subjects.find(x=>x.name===name);sub.score=Number(val);sub.status=sub.score>=PASS_SCORE?'passed':'failed';saveState();render();showToast('تم رصد الدرجة')}
+
+function printInvoice(no){const i=S.invoices.find(x=>x.invoiceNo===no),st=S.students.find(s=>s.id===i.studentId);$('modal-container').innerHTML=`<div class="modal" onclick="if(event.target===this)this.innerHTML=''"><div class="paper"><h2>جامعة صنعاء – مركز الاختبارات الإلكترونية</h2><p>حافظة توريد رسوم رقم: <b>#${i.invoiceNo}</b></p><p>الطالب: <b>${st.nameAr}</b> (${st.phone})</p><p>الكلية والتخصص: ${st.college} - ${st.major}</p><table><thead><tr><th>المادة</th><th>المبلغ</th></tr></thead><tbody>${i.subjects.map(s=>`<tr><td>${s.name}</td><td>${formatMoney(FEE)}</td></tr>`).join('')}<tr><th>الإجمالي</th><td><b>${formatMoney(i.totalAmount)}</b></td></tr></tbody></table><br><button class="btn btn-primary no-print" onclick="window.print()"><i class="fa-solid fa-print"></i> طباعة</button> <button class="btn btn-alt no-print" onclick="$('modal-container').innerHTML=''">إغلاق</button></div></div>`}
+
+function printAdmitCard(stId,subName){
+    const st=S.students.find(s=>s.id===stId),sub=st.subjects.find(x=>x.name===subName);
+    const qrText = `EEC-SU|STU:${st.id}|SUB:${sub.name}|DATE:${sub.date}|CONFIRMED`;
+    
+    $('modal-container').innerHTML=`<div class="modal" onclick="if(event.target===this)this.innerHTML=''"><div class="paper"><div class="admit-card"><div class="admit-card-header"><div><h3>بطاقة دخول القاعة الامتحانية</h3><b>جامعة صنعاء - مركز الاختبارات الإلكترونية</b></div><img src="logo.jpg" style="height:60px"></div><p><b>اسم الطالب:</b> ${st.nameAr} (${st.nameEn})</p><p><b>المادة:</b> ${sub.name}</p><p><b>تاريخ الاختبار:</b> ${formatDayName(sub.date)} - 09:30 صباحاً</p><p><b>الكلية والتخصص:</b> ${st.college} - ${st.major}</p><div style="display:flex;justify-content:between;align-items:center;margin-top:20px;"><div id="qrcode"></div><div style="font-size:12px;color:var(--muted);max-width:300px;"><i class="fa-solid fa-info-circle"></i> يرجى الحضور قبل الموعد بـ 30 دقيقة وإبراز هذه البطاقة مع الهوية الشخصية.</div></div></div><br><button class="btn btn-primary no-print" onclick="window.print()"><i class="fa-solid fa-print"></i> طباعة البطاقة</button> <button class="btn btn-alt no-print" onclick="$('modal-container').innerHTML=''">إغلاق</button></div></div>`;
+    
+    setTimeout(()=>{
+        new QRCode(document.getElementById("qrcode"), { text: qrText, width: 100, height: 100 });
+    }, 100);
+}
+
+function loadDemoData(){const iso=formatDateIso(new Date());S.students=[{id:1,nameAr:'أحمد محمد العمري',nameEn:'Ahmed Al-Omari',phone:'777123456',uni:SANAA,college:'كلية الحاسوب وتكنولوجيا المعلومات',major:'علوم الحاسوب',level:'ماجستير',subjects:[{name:'اللغة العربية',date:iso,status:'confirmed',score:85,invoiceNo:1001},{name:'اللغة الإنجليزية',date:iso,status:'confirmed',score:90,invoiceNo:1001},{name:'الحاسوب',date:iso,status:'confirmed',score:95,invoiceNo:1001}]}];S.invoices=[{invoiceNo:1001,studentId:1,type:'initial',subjects:[{name:'اللغة العربية'},{name:'اللغة الإنجليزية'},{name:'الحاسوب'}],totalAmount:15000,status:'approved',receiptRef:'BANK-778',createdAt:'2026-11-01'}];saveState();render();showToast('تم تحميل الطالب التجريبي (هاتف: 777123456)')}
+
+render();
+</script>
+</body>
+</html>
